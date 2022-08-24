@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Office</title>
+
+    <link rel="stylesheet" href="asset/css/bootstrap.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="asset/css/main.css" />
+
+    <script src="asset/js/jquery.min.js"></script>
+    <script src="asset/js/popper.min.js"></script>
+    <script src="asset/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <section id="wrapper">
+      <header class="site-header">
+        <div class="container-fluid">
+          <nav class="navbar site-navigation">
+            <div class="navbar-brand">
+              <a href="javascript:void(0);">
+                <img src="./asset/img/logo.svg" alt="Logo" />
+              </a>
+            </div>
+
+            <ul class="navbar-nav">
+              <li id="homeBtn">
+                <a href="javascript:void(0);" class="active">
+                  <span class="txt">Home</span>
+                </a>
+              </li>
+              <li id="historyBtn">
+                <a href="javascript:void(0);">
+                  <span class="icon">
+                    <img
+                      src="./asset/img/share-clock.png"
+                      alt="History"
+                      class="iconBlack"
+                    />
+                    <img
+                      src="./asset/img/share-clock-blue.png"
+                      alt="History"
+                      class="iconBlue"
+                    />
+                  </span>
+                  <span class="txt">History</span>
+                </a>
+              </li>
+              <li id="logoutBtn">
+                <a href="javascript:void(0);">
+                  <span class="icon"
+                    ><img src="./asset/img/logout.png" alt="LogOut"
+                  /></span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- container -->
+      </header>
+
+      <main class="site-main">
+        <section class="common-sec">
+          <div class="container-fluid">
+            <form action="" id="secure-message-form">
+              <div class="row">
+                <div class="col-md-5 col-lg-4">
+                  <div class="secure-message-fields">
+                    <div class="input-bx">
+                      <label for="">Name</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        id=""
+                        placeholder="Copy & Paste Only"
+                      />
+                    </div>
+
+                    <div class="input-bx">
+                      <label for="">Email</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        id=""
+                        placeholder="Copy & Paste Only"
+                      />
+                    </div>
+
+                    <div class="input-bx">
+                      <label for="">Date Of Birth</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        id=""
+                        placeholder="Copy & Paste Only"
+                      />
+                    </div>
+
+                    <div class="input-bx">
+                      <label for="attachFile"
+                        >Attach File ( < 5 MB PDF Only )</label
+                      >
+                      <input type="file" id="attachFile" />
+                    </div>
+
+                    <div
+                      class="input-bx input-checkbox secure-message-checkbox"
+                      style="display: none"
+                    >
+                      <input type="checkbox" value="" id="defaultCheck1" />
+                      <label for="defaultCheck1">
+                        Check this box to confirm that you have personally
+                        varified NAME and DOB on the file and the file belongs
+                        to this patient.
+                      </label>
+                    </div>
+
+                    <div class="input-submit">
+                      <button type="submit" class="custom-btn">Send</button>
+                    </div>
+                    <p class="msg-success text-center">Message Sent</p>
+                  </div>
+                </div>
+                <!-- col -->
+
+                <div class="col-md-7 col-lg-8">
+                  <div class="secure-message-radios">
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadio"
+                        />
+                      </div>
+                      <label for="checkRadio">
+                        Our records indicate that you missed your appointment.
+                        Continued care is essential to your health, and failure
+                        to adhere to the agreed upon plan of care may have
+                        significant consequences. It is important to your health
+                        that you schedule an appointment. Please contact us at
+                        951-765-1766 as soon as possible. Click here for our
+                        cancellation/missed appointment policy.
+                      </label>
+                    </div>
+
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadio1"
+                        />
+                      </div>
+                      <label for="checkRadio1">
+                        It is important that we discuss your results with you.
+                        Please call us at 951-765-1766 and schedule an
+                        appointment. If you already have an appointment for
+                        follow up, be sure to keep the appointment.
+                      </label>
+                    </div>
+
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadio2"
+                        />
+                      </div>
+                      <label for="checkRadio2">
+                        It is important that we discuss the follow up with you.
+                        Please call us at 951-765-1766 and schedule an
+                        appointment. If you already have an appointment for
+                        follow up, be sure to keep the appointment.
+                      </label>
+                    </div>
+
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadio3"
+                        />
+                      </div>
+                      <label for="checkRadio3">
+                        We have made several attempts to contact you, but have
+                        been unsuccessful. We ask that you please contact our
+                        office at 951-765-1766 as soon as possible.
+                      </label>
+                    </div>
+
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadio4"
+                        />
+                      </div>
+                      <label for="checkRadio4">
+                        It is time for your annual well woman exam. Note that we
+                        need to see you for an annual well woman visit to
+                        continue with prescription refills. Please call us at
+                        951-765-1766 to schedule an appointment.
+                      </label>
+                    </div>
+
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadio5"
+                        />
+                      </div>
+                      <label for="checkRadio5">
+                        It is important that we speak with you regarding your
+                        health. Please contact our office at 951-765-1766 as
+                        soon as possible.
+                      </label>
+                    </div>
+
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadio6"
+                        />
+                      </div>
+                      <label for="checkRadio6">
+                        Please contact the pharmacy for coverage and confirm
+                        delivery with our office before your appointment date.
+                      </label>
+                    </div>
+
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadio7"
+                        />
+                      </div>
+                      <label for="checkRadio7"> Your file is attached. </label>
+                    </div>
+
+                    <div class="input-bx input-radio">
+                      <div class="radio-bx">
+                        <input
+                          type="radio"
+                          name="radioSelector"
+                          value=""
+                          id="checkRadioCustom"
+                        />
+                      </div>
+                      <label for="checkRadioCustom"> Custom </label>
+                    </div>
+
+                    <div class="input-bx">
+                      <textarea
+                        name=""
+                        class="form-control"
+                        id=""
+                        cols="30"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- col -->
+              </div>
+              <!-- row -->
+            </form>
+          </div>
+          <!-- container -->
+        </section>
+        <!-- common-sec -->
+      </main>
+    </section>
+    <!-- wrapper -->
+
+    <script src="asset/js/custom.js"></script>
+  </body>
+</html>
