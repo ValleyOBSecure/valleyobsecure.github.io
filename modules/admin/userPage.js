@@ -170,12 +170,12 @@ const userPage = `
               <div class="mdl-input-bx">
                 <label>History</label>
                 <select name="" required class="form-control" id="addUserHistory">
-                  <option value="7-days">0 Days</option>
-                  <option value="7-days">7 Days</option>
-                  <option value="30-days">30 Days</option>
-                  <option value="90-days">90 Days</option>
-                  <option value="180-days">180 Days</option>
-                  <option value="365-days">365 Days</option>
+                  <option value="0">0 Days</option>
+                  <option value="7">7 Days</option>
+                  <option value="30">30 Days</option>
+                  <option value="90">90 Days</option>
+                  <option value="180">180 Days</option>
+                  <option value="365">365 Days</option>
                 </select>
               </div>
 
@@ -456,7 +456,7 @@ const showData = (data, type = "") => {
     <tr>
   		<td>${x[0].substr(1)}</td>
   		<td>${x[1].substr(1)}</td>
-  		<td>${x[2].substr(1)} days</td>
+  		<td>${x[2].substr(1)} Days</td>
   		<td>${x[3] != "x" ? x[3].substr(1).replace(/,/g, "<br>") : "-"}</td>
       <td style="min-width: 100px">
         <button id="history-${id}" class="tb-btn-smpl delete text-center">

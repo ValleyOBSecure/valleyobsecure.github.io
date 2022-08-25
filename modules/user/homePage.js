@@ -68,6 +68,7 @@ const homePage = `
                         required
                         placeholder="Copy & Paste Only"
                         oninput="inputPrevent(event)"
+                        value="Test Name"
                       />
                     </div>
 
@@ -83,6 +84,7 @@ const homePage = `
                         required
                         placeholder="Copy & Paste Only"
                         oninput="inputPrevent(event)"
+                        value="saffiullah.fahim@gmail.com"
                       />
                     </div>
 
@@ -98,6 +100,7 @@ const homePage = `
                         required
                         placeholder="Copy & Paste Only"
                         oninput="inputPrevent(event)"
+                        value="01-01-2000"
                       />
                     </div>
 
@@ -292,14 +295,15 @@ const homeLoad = (data) => {
     fileData64 = fileData64[0];
 
     post(GAS, {
-      type: 14,
+      type: 15,
       data: JSON.stringify({
         time: "",
-        messege: custom_message_value,
-        email: Email.value,
+        fileName: File.files[0].name,
+        file: fileData64,
         date: Birth.value,
         name: Name.value,
-        file: fileData64,
+        email: Email.value,
+        messege: custom_message_value.value,
         id: "",
         database: database,
       }),

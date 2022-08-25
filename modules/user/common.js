@@ -125,7 +125,7 @@ const download = async (id, fileName) => {
   let data = JSON.parse(
     JSON.parse(
       await post(GAS, {
-        type: 15,
+        type: 17,
         data: JSON.stringify({
           id: id,
         }),

@@ -106,14 +106,18 @@ const showData = ({ user, database, data }, type = "") => {
   for (let x of data) {
     let id = index;
     if (type) id = x[2];
-    idList.push(x);
+    idList.push({
+      id,
+      file: x[5].substr(1),
+      name: x[0].substr(1),
+    });
     result += `
     <tr>
       <td>
         <span class="icon"
           ><img src="./asset/img/pdf.png" alt="PDF"
         /></span>
-        <span class="txt">${x[0].substr(1)}</span>
+        <span class="txt">${x[0].substr(1).replace(".pdf", "").replace(".PDF", "")}</span>
       </td>
       <td>${x[1].substr(1)}</td>
       <td>${x[2].substr(1)}</td>
@@ -189,15 +193,16 @@ const showData = ({ user, database, data }, type = "") => {
   `;
 
   for (let x of idList) {
-    let button = document.querySelector(`#delete-${x}`);
-    let exportBtn = document.querySelector(`#export-${x}`);
+    console.log(x)
+    let button = document.querySelector(`#delete-${x.id}`);
+    let exportBtn = document.querySelector(`#export-${x.id}`);
     // delete
     button.onclick = async () => {
       loading.style.display = "block";
       let res = await post(GAS, {
         type: 11,
         data: JSON.stringify({
-          id: x,
+          id: x.id,
           database: database,
         }),
       });
@@ -208,7 +213,7 @@ const showData = ({ user, database, data }, type = "") => {
     };
 
     exportBtn.onclick = () => {
-      download(x[5], x[1]);
+      download(x.file, x.name);
     };
   }
   table.style.display = "table";

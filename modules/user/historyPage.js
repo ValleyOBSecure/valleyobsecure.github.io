@@ -103,14 +103,18 @@ const showData = (data, type = "") => {
   let index = 0;
   let idList = [];
   for (let x of data) {
-    idList.push(index);
+    idList.push({
+      index,
+      file: x[5].substr(1),
+      name: x[0].substr(1),
+    });
     result += `
     <tr>
       <td>
         <span class="icon"
           ><img src="./asset/img/pdf.png" alt="PDF"
         /></span>
-        <span class="txt">${x[0].substr(1)}</span>
+        <span class="txt">${x[0].substr(1).replace(".pdf", "").replace(".PDF", "")}</span>
       </td>
       <td>${x[1].substr(1)}</td>
       <td>${x[2].substr(1)}</td>
@@ -147,9 +151,9 @@ const showData = (data, type = "") => {
   `;
 
   for (let x of idList) {
-    let exportBtn = document.querySelector(`#export-${x}`);
+    let exportBtn = document.querySelector(`#export-${x.index}`);
     exportBtn.onclick = () => {
-      download(data[x][5], data[x][1]);
+      download(x.file, x.name);
     };
   }
   table.style.display = "table";
@@ -157,13 +161,14 @@ const showData = (data, type = "") => {
   sortingLoad(0, data, type, showData);
 };
 
-const historyLoad = (database) => {
-  const { post, GAS } = d;
+const historyLoad = () => {
+  const { post, GAS, database, history } = d;
   commonLoad();
   post(GAS, {
-    type: 10,
+    type: 16,
     data: JSON.stringify({
       database: database,
+      history: history,
     }),
   })
     .then(async (res) => {
