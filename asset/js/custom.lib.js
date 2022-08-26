@@ -1,6 +1,21 @@
 const d = {
   // Google Apps Script
   GAS: "https://script.google.com/macros/s/AKfycbxaTR9QQZRWJv10XLsf1E_itKjZZuGOVH7BEwuNA-Qd7npE4AWU8dIlEOdnVvUvfglZJA/exec",
+  // url parameter
+  GetURLParameter(parameter) {
+    let data = [];
+    let url = window.location.toString();
+    if (url.indexOf("?") >= 0) {
+      url = url.substr(url.indexOf("?"));
+      let searchParams = new URLSearchParams(url);
+      if (searchParams.has(parameter)) {
+        data = searchParams.getAll(parameter);
+      }
+    }
+    if (!data.length) data = "";
+    else data = data[0];
+    return data;
+  },
   // set caret position
   setCaretPosition(e, pos) {
     // Modern browsers
