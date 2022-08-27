@@ -5,13 +5,17 @@ const searchLoad = (data, callback, indexs, type = null) => {
   document.forms["search-form"].onsubmit = (e) => {
     e.preventDefault();
     let finalData = [];
+    let usedData = [];
     for (let i = 0; i < data.length; i++) {
       indexs.forEach((value) => {
         if (
           data[i][value].toLowerCase().indexOf(search.value.toLowerCase()) > -1
+          &&
+          usedData.indexOf(i) == -1
         ) {
           data[i].push(i + 1);
           finalData.push(data[i]);
+          usedData.push(i);
         }
       });
     }

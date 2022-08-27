@@ -158,7 +158,7 @@ const showData = (data, type = "") => {
   }
   table.style.display = "table";
   loading.style.display = "none";
-  sortingLoad(0, data, type, showData);
+  sortingLoad(2, data, type, showData);
 };
 
 const historyLoad = () => {

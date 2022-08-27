@@ -236,7 +236,7 @@ const showData = ({ user, database, data }, type = "") => {
     searchLoad(res.data, showData, [1, 2, 3], res);
     document.querySelector("#search").value = "";
   };
-  sortingLoad(0, data, type, showData, { user, database, data });
+  sortingLoad(2, data, type, showData, { user, database, data });
 };
 
 const historyLoad = (database) => {
