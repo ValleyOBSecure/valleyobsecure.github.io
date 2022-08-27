@@ -266,6 +266,7 @@ const homeLoad = (data) => {
   document.forms["secure-message-form"].onsubmit = async (e) => {
     e.preventDefault();
 
+    let custom_message = document.querySelector("#custom-message");
     let custom_message_value = document.querySelector("#custom-message-value");
 
     button.innerText = "Sending...";
@@ -310,6 +311,8 @@ const homeLoad = (data) => {
         const { result } = res;
         if (result) {
           e.target.reset();
+          custom_message.style.display = "none";
+          custom_message_value.required = false;
           button.innerText = "Send";
           loading.style.display = "none";
           success.style.display = "block";
