@@ -265,7 +265,7 @@ const homeLoad = (data) => {
 
   File.onchange = (e) => {
     let checkboxDiv = document.querySelector(".secure-message-checkbox");
-    checkboxDiv.style.display = "block";
+    checkboxDiv.style.display = "flex";
     document.querySelector("#defaultCheck1").required = true;
   }
 
