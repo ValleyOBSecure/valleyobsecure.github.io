@@ -108,19 +108,18 @@ const showData = (data, type = "") => {
       file: x[5].substr(1),
       name: x[0].substr(1),
     });
-    result += `
-    <tr>
-      <td>
-        <span class="icon"
-          ><img src="./asset/img/pdf.png" alt="PDF"
-        /></span>
+
+    let docName = "";
+    let exportField = "";
+    if(x[0].substr(1).replace(".pdf", "").replace(".PDF", "")){
+      docName = `
+        <span class="icon">
+          <img src="./asset/img/pdf.png" alt="PDF"/>
+        </span>
         <span class="txt">${x[0].substr(1).replace(".pdf", "").replace(".PDF", "")}</span>
-      </td>
-      <td>${x[1].substr(1)}</td>
-      <td>${x[2].substr(1)}</td>
-      <td>${x[3].substr(1)}</td>
-      <td>${x[4].substr(1)}</td>
-      <td class="text-center">
+      `;
+
+      exportField = `
         <button id="export-${index}" class="tb-btn export">
           <span class="icon">
             <img src="./asset/img/pdf.png" class="black" alt="PDF" />
@@ -132,6 +131,20 @@ const showData = (data, type = "") => {
           </span>
           <span class="txt">Export</span>
         </button>
+      `;
+    }
+
+    result += `
+    <tr>
+      <td>
+        ${docName}
+      </td>
+      <td>${x[1].substr(1)}</td>
+      <td>${x[2].substr(1)}</td>
+      <td>${x[3].substr(1)}</td>
+      <td>${x[4].substr(1)}</td>
+      <td class="text-center">
+        ${exportField}
       </td>
     </tr>
     `;
@@ -152,9 +165,11 @@ const showData = (data, type = "") => {
 
   for (let x of idList) {
     let exportBtn = document.querySelector(`#export-${x.index}`);
-    exportBtn.onclick = () => {
-      download(x.file, x.name);
-    };
+    if (exportBtn) {
+      exportBtn.onclick = () => {
+        download(x.file, x.name);
+      };
+    }
   }
   table.style.display = "table";
   loading.style.display = "none";
