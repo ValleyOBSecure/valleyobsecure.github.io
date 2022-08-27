@@ -105,7 +105,7 @@ const homePage = `
                       <label for="File"
                         >Attach File ( < 5 MB PDF Only )</label
                       >
-                      <input type="file" required id="File" />
+                      <input type="file" id="File" />
                     </div>
 
                     <div
@@ -274,29 +274,35 @@ const homeLoad = (data) => {
     success.style.display = "none";
     loading.style.display = "block";
 
-    if (File.files[0].type != "application/pdf") {
-      button.innerText = "Send";
-      error.innerHTML = "Only PDF files may be uploaded.";
-      error.style.display = "block";
-      loading.style.display = "none";
-      return;
-    }
+    let fileData64 = "";
+    let fileName = "";
+    if (File.files.length) {
+      if (File.files[0].type != "application/pdf") {
+        button.innerText = "Send";
+        error.innerHTML = "Only PDF files may be uploaded.";
+        error.style.display = "block";
+        loading.style.display = "none";
+        return;
+      }
 
-    if (File.files[0].size > 5242880) {
-      button.innerText = "Send";
-      error.innerHTML = "Error! PDF file size < 5MB";
-      error.style.display = "block";
-      loading.style.display = "none";
-      return;
-    }
-    let fileData64 = await readFiles(File.files[0]);
-    fileData64 = fileData64[0];
+      if (File.files[0].size > 5242880) {
+        button.innerText = "Send";
+        error.innerHTML = "Error! PDF file size < 5MB";
+        error.style.display = "block";
+        loading.style.display = "none";
+        return;
+      }
 
+      fileData64 = await readFiles(File.files[0]);
+      fileData64 = fileData64[0];
+
+      fileName = File.files[0].name;
+    }
     post(GAS, {
       type: 15,
       data: JSON.stringify({
         time: "",
-        fileName: File.files[0].name,
+        fileName: fileName,
         file: fileData64,
         date: Birth.value,
         name: Name.value,
