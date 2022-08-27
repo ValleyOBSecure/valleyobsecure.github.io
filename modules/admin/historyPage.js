@@ -105,7 +105,7 @@ const showData = ({ user, database, data }, type = "") => {
   let idList = [];
   for (let x of data) {
     let id = index;
-    if (type) id = x[2];
+    if (type) id = x[6];
     idList.push({
       id,
       file: x[5].substr(1),
@@ -193,7 +193,7 @@ const showData = ({ user, database, data }, type = "") => {
   `;
 
   for (let x of idList) {
-    console.log(x)
+    //console.log(x)
     let button = document.querySelector(`#delete-${x.id}`);
     let exportBtn = document.querySelector(`#export-${x.id}`);
     // delete
