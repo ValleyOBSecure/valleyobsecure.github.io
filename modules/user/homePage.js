@@ -325,6 +325,8 @@ const homeLoad = (data) => {
           e.target.reset();
           custom_message.style.display = "none";
           custom_message_value.required = false;
+          document.querySelector(".secure-message-checkbox").style.display = "none";
+          document.querySelector("#defaultCheck1").required = false;
           button.innerText = "Send";
           loading.style.display = "none";
           success.style.display = "block";
