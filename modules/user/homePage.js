@@ -109,11 +109,11 @@ const homePage = `
                     </div>
 
                     <div
+                      style="display: none;"
                       class="input-bx input-checkbox secure-message-checkbox"
                     >
                       <input
                         type="checkbox"
-                        required
                         value=""
                         id="defaultCheck1"
                       />
@@ -262,6 +262,12 @@ const homeLoad = (data) => {
   let error = document.querySelector(".msg-error");
   let success = document.querySelector(".msg-success");
   let loading = document.querySelector("#loading");
+
+  File.onchange = (e) => {
+    let checkboxDiv = document.querySelector(".secure-message-checkbox");
+    checkboxDiv.style.display = "block";
+    document.querySelector("#defaultCheck1").required = true;
+  }
 
   document.forms["secure-message-form"].onsubmit = async (e) => {
     e.preventDefault();
