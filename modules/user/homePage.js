@@ -68,7 +68,6 @@ const homePage = `
                         required
                         placeholder="Copy & Paste Only"
                         oninput="inputPrevent(event)"
-                        value="Test Name"
                       />
                     </div>
 
@@ -84,7 +83,6 @@ const homePage = `
                         required
                         placeholder="Copy & Paste Only"
                         oninput="inputPrevent(event)"
-                        value="saffiullah.fahim@gmail.com"
                       />
                     </div>
 
@@ -100,7 +98,6 @@ const homePage = `
                         required
                         placeholder="Copy & Paste Only"
                         oninput="inputPrevent(event)"
-                        value="01-01-2000"
                       />
                     </div>
 
