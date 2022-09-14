@@ -16,7 +16,7 @@ const verify = `
 				<nav class="navbar site-navigation">
 					<div class="navbar-brand">
 						<a href="#">
-							<img src="asset/img/client-Valley-Logo.svg" alt="Logo">
+							<img src="https://valleyobsecure.github.io/asset/img/client-Valley-Logo.svg" alt="Logo">
 						</a>
 					</div>
 				</nav>
