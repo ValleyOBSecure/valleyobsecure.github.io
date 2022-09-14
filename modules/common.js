@@ -1,3 +1,5 @@
+import { d } from "../asset/js/custom.lib.js";
+
 // search load
 const searchLoad = (data, callback, indexs, type = null) => {
   let search = document.querySelector("#search");
@@ -9,8 +11,8 @@ const searchLoad = (data, callback, indexs, type = null) => {
     for (let i = 0; i < data.length; i++) {
       indexs.forEach((value) => {
         if (
-          data[i][value].toLowerCase().indexOf(search.value.toLowerCase()) > -1
-          &&
+          data[i][value].toLowerCase().indexOf(search.value.toLowerCase()) >
+            -1 &&
           usedData.indexOf(i) == -1
         ) {
           data[i].push(i + 1);

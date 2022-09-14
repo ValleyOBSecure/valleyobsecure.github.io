@@ -106,20 +106,24 @@ const showData = (data, type = "") => {
     idList.push({
       index,
       file: x[5].substr(1),
-      name: x[0].substr(1),
+      name: x[2].substr(1) + x[1].substr(1),
     });
 
     let docName = "";
     let exportField = "";
-    if(x[0].substr(1).replace(".pdf", "").replace(".PDF", "")){
+    if (x[0].substr(1).replace(".pdf", "").replace(".PDF", "")) {
       docName = `
         <span class="icon">
           <img src="./asset/img/pdf.png" alt="PDF"/>
         </span>
-        <span class="txt">${x[0].substr(1).replace(".pdf", "").replace(".PDF", "")}</span>
+        <span class="txt">${x[0]
+          .substr(1)
+          .replace(".pdf", "")
+          .replace(".PDF", "")}</span>
       `;
+    }
 
-      exportField = `
+    exportField = `
         <button id="export-${index}" class="tb-btn export">
           <span class="icon">
             <img src="./asset/img/pdf.png" class="black" alt="PDF" />
@@ -129,10 +133,9 @@ const showData = (data, type = "") => {
               alt="PDF"
             />
           </span>
-          <span class="txt">Export</span>
+          <span class="txt">Download</span>
         </button>
       `;
-    }
 
     result += `
     <tr>
@@ -158,7 +161,7 @@ const showData = (data, type = "") => {
     <th>Name</th>
     <th>Email</th>
     <th>Message</th>
-    <th class="text-center">Export PDF</th>
+    <th class="text-center">Download PDF</th>
   </tr>
 	${result}
   `;

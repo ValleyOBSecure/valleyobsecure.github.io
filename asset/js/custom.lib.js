@@ -208,6 +208,16 @@ const d = {
           })
       );
   },
+  convertDataURIToBinary(dataURI) {
+    var raw = window.atob(dataURI.split(",")[1]);
+    var rawLength = raw.length;
+
+    var array = new Uint8Array(new ArrayBuffer(rawLength));
+    for (let i = 0; i < rawLength; i++) {
+      array[i] = raw.charCodeAt(i) & 0xff;
+    }
+    return array;
+  },
 };
 
 export { d };

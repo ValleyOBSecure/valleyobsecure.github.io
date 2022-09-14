@@ -1,5 +1,6 @@
 import { d } from "../../asset/js/custom.lib.js";
 import { commonLoad } from "./common.js";
+const { PDFDocument, StandardFonts } = PDFLib;
 
 const homePage = `
 <div>
@@ -165,6 +166,111 @@ const homePage = `
 </div>
 `;
 
+// download file
+const download = async (data, fileName) => {
+  let loading = document.querySelector("#loading");
+  loading.style.display = "block";
+
+  const anchor = document.createElement("a");
+  if ("download" in anchor) {
+    //html5 A[download]
+    anchor.href = data;
+    anchor.setAttribute("download", fileName);
+    anchor.innerHTML = "downloading...";
+    anchor.style.display = "none";
+    anchor.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+    document.body.appendChild(anchor);
+    setTimeout(function () {
+      anchor.click();
+      document.body.removeChild(anchor);
+      loading.style.display = "none";
+    }, 66);
+  }
+};
+
+const breakLine = (data) => {
+  let dataArray = data.split(" ");
+  let result = "";
+  let line = "";
+  let maxChr = 63;
+
+  for (let i = 0; i < dataArray.length; i++) {
+    let x = dataArray[i];
+    line += x + " ";
+    if (line.length > 63) {
+      line = line.substr(0, line.length - x.length - 1);
+      result += line + "\n";
+      line = x + " ";
+    }
+
+    if (i == dataArray.length - 1) {
+      result += line;
+    }
+  }
+
+  return result;
+};
+
+const createPdf = async (obj, pdf) => {
+  const fontSize = 13;
+  const size = [];
+
+  const pdfDoc = await PDFDocument.create();
+  const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+
+  for (let key in obj) {
+    size.push(helveticaBold.widthOfTextAtSize(key, fontSize));
+  }
+
+  let initY = 50;
+  let maxH = helveticaBold.heightAtSize(fontSize);
+  let maxW = Math.max(...size);
+
+  const page = pdfDoc.addPage();
+
+  for (let key in obj) {
+    page.drawText(key, {
+      x: 50,
+      y: page.getHeight() - initY,
+      size: fontSize,
+      font: helveticaBold,
+    });
+
+    page.drawText(":", {
+      x: maxW + 60,
+      y: page.getHeight() - initY,
+      size: fontSize,
+      font: helveticaBold,
+    });
+
+    page.drawText(obj[key], {
+      x: maxW + 70,
+      y: page.getHeight() - initY,
+      size: fontSize,
+      font: helvetica,
+    });
+
+    initY += maxH + 10;
+  }
+
+  console.log(page);
+
+  let pdfBytes;
+  if (pdf) {
+    const pdfDoc_ = await PDFDocument.load(pdf);
+    const page = await pdfDoc_.copyPages(pdfDoc, [0]);
+    pdfDoc_.insertPage(0, page[0]);
+    pdfBytes = await pdfDoc_.saveAsBase64({ dataUri: true });
+  } else {
+    pdfBytes = await pdfDoc.saveAsBase64({ dataUri: true });
+  }
+
+  return pdfBytes;
+};
+
 let finalMessage = "";
 
 const showData = (data) => {
@@ -251,7 +357,7 @@ const showData = (data) => {
 };
 
 const homeLoad = (data) => {
-  const { readFiles, post, GAS, database } = d;
+  const { readFiles, convertDataURIToBinary, post, GAS, database } = d;
   commonLoad();
   showData(data);
   let Name = document.querySelector("#Name");
@@ -267,7 +373,7 @@ const homeLoad = (data) => {
     let checkboxDiv = document.querySelector(".secure-message-checkbox");
     checkboxDiv.style.display = "flex";
     document.querySelector("#defaultCheck1").required = true;
-  }
+  };
 
   document.forms["secure-message-form"].onsubmit = async (e) => {
     e.preventDefault();
@@ -282,6 +388,14 @@ const homeLoad = (data) => {
 
     let fileData64 = "";
     let fileName = "";
+
+    const object = {
+      Name: Name.value,
+      Email: Email.value,
+      "Date of Birth": Birth.value,
+      "Secure Messege": breakLine(custom_message_value.value),
+    };
+
     if (File.files.length) {
       if (File.files[0].type != "application/pdf") {
         button.innerText = "Send";
@@ -300,10 +414,13 @@ const homeLoad = (data) => {
       }
 
       fileData64 = await readFiles(File.files[0]);
-      fileData64 = fileData64[0];
+      fileData64 = await convertDataURIToBinary(fileData64[0]);
 
       fileName = File.files[0].name;
     }
+
+    fileData64 = await createPdf(object, fileData64);
+
     post(GAS, {
       type: 15,
       data: JSON.stringify({
@@ -322,14 +439,17 @@ const homeLoad = (data) => {
         res = JSON.parse(JSON.parse(res).messege);
         const { result } = res;
         if (result) {
+          const fileName = Name.value + Birth.value;
           e.target.reset();
           custom_message.style.display = "none";
           custom_message_value.required = false;
-          document.querySelector(".secure-message-checkbox").style.display = "none";
+          document.querySelector(".secure-message-checkbox").style.display =
+            "none";
           document.querySelector("#defaultCheck1").required = false;
           button.innerText = "Send";
           loading.style.display = "none";
           success.style.display = "block";
+          download(fileData64, fileName);
         } else {
           console.log(res);
           error.style.display = "block";
