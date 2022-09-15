@@ -175,7 +175,7 @@ const download = async (data, fileName) => {
   if ("download" in anchor) {
     //html5 A[download]
     anchor.href = data;
-    anchor.setAttribute("download", fileName);
+    anchor.setAttribute("download", fileName + ".pdf");
     anchor.innerHTML = "downloading...";
     anchor.style.display = "none";
     anchor.addEventListener("click", function (e) {
