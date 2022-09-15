@@ -16,7 +16,7 @@ const verify = `
 				<nav class="navbar site-navigation">
 					<div class="navbar-brand">
 						<a href="#">
-							<img src="https://valleyobsecure.github.io/asset/img/client-Valley-Logo.svg" alt="Logo">
+							<img src="asset/img/client-Valley-Logo.svg" alt="Logo">
 						</a>
 					</div>
 				</nav>
@@ -89,7 +89,7 @@ const verify = `
 
 				<div class="modal-body text-center">
 					<div class="img mb-4">
-						<img src="https://valleyobsecure.github.io/asset/img/verified.png" alt="Success">
+						<img src="asset/img/verified.png" alt="Success">
 					</div>
 					<h3 class="modal-title text-center">Thank You!</h3>
 					<p>Please Check Your Email.</p>
@@ -112,7 +112,7 @@ const verify = `
 `;
 
 const verifyLoad = () => {
-  const { post, GAS } = d;
+  const { post, GAS, GetURLParameter } = d;
   let loading = document.querySelector("#loading");
   let form = document.forms["form"];
   let button = document.querySelector("#button");
@@ -134,57 +134,54 @@ const verifyLoad = () => {
       fullDate.push(value);
     }
 
-    google.script.url.getLocation(function (location) {
-      const { i, b } = location.parameter;
-      post(GAS, {
-        type: 17,
-        data: JSON.stringify({
-          date: fullDate.join("-"),
-          id: i,
-          b: b,
-        }),
-      })
-        .then((res) => {
-          res = JSON.parse(JSON.parse(res).messege);
-          const { result, messege } = res;
-          if (result) {
-            if (messege == "id") {
-              error.style.display = "block";
-              button.innerText = "Submit";
-              error.innerHTML = "Invalid Link";
-              loading.style.display = "none";
-            } else if (messege == "link") {
-              error.style.display = "block";
-              button.innerText = "Submit";
-              error.innerHTML = "This link has been expired";
-              loading.style.display = "none";
-            } else if (messege == "date") {
-              error.style.display = "block";
-              button.innerText = "Submit";
-              error.innerHTML = "Please enter correct Date of Birth";
-              loading.style.display = "none";
-            } else if (messege == "verify") {
-              error.style.display = "block";
-              button.innerText = "Submit";
-              error.innerHTML = "Date of birth already verified!";
-              loading.style.display = "none";
-            } else {
-              //e.target.reset();
-              button.innerText = "Submit";
-              loading.style.display = "none";
-              $("#verifiedDobModal").modal({
-                backdrop: "static",
-              });
-            }
+    post(GAS, {
+      type: 17,
+      data: JSON.stringify({
+        date: fullDate.join("-"),
+        id: GetURLParameter("i"),
+        b: GetURLParameter("b"),
+      }),
+    })
+      .then((res) => {
+        res = JSON.parse(JSON.parse(res).messege);
+        const { result, messege } = res;
+        if (result) {
+          if (messege == "id") {
+            error.style.display = "block";
+            button.innerText = "Submit";
+            error.innerHTML = "Invalid Link";
+            loading.style.display = "none";
+          } else if (messege == "link") {
+            error.style.display = "block";
+            button.innerText = "Submit";
+            error.innerHTML = "This link has been expired";
+            loading.style.display = "none";
+          } else if (messege == "date") {
+            error.style.display = "block";
+            button.innerText = "Submit";
+            error.innerHTML = "Please enter correct Date of Birth";
+            loading.style.display = "none";
+          } else if (messege == "verify") {
+            error.style.display = "block";
+            button.innerText = "Submit";
+            error.innerHTML = "Date of birth already verified!";
+            loading.style.display = "none";
+          } else {
+            //e.target.reset();
+            button.innerText = "Submit";
+            loading.style.display = "none";
+            $("#verifiedDobModal").modal({
+              backdrop: "static",
+            });
           }
-        })
-        .catch((err) => {
-          error.style.display = "block";
-          button.innerText = "Submit";
-          error.innerHTML = "Error found! Please try again.";
-          loading.style.display = "none";
-        });
-    });
+        }
+      })
+      .catch((err) => {
+        error.style.display = "block";
+        button.innerText = "Submit";
+        error.innerHTML = "Error found! Please try again.";
+        loading.style.display = "none";
+      });
   };
 };
 
