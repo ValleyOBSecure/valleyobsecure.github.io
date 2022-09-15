@@ -194,12 +194,12 @@ const breakLine = (data) => {
   let dataArray = data.split(" ");
   let result = "";
   let line = "";
-  let maxChr = 63;
+  let maxChr = 67;
 
   for (let i = 0; i < dataArray.length; i++) {
     let x = dataArray[i];
     line += x + " ";
-    if (line.length > 63) {
+    if (line.length > maxChr) {
       line = line.substr(0, line.length - x.length - 1);
       result += line + "\n";
       line = x + " ";
@@ -356,6 +356,19 @@ const showData = (data) => {
   loading.style.display = "none";
 };
 
+const getDateTime = () => {
+  let time = new Date();
+  return (
+    time.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }) +
+    " | " +
+    time.toLocaleTimeString("en-US")
+  );
+};
+
 const homeLoad = (data) => {
   const { readFiles, convertDataURIToBinary, post, GAS, database } = d;
   commonLoad();
@@ -390,10 +403,11 @@ const homeLoad = (data) => {
     let fileName = "";
 
     const object = {
+      Timespan: getDateTime(),
       Name: Name.value,
       Email: Email.value,
       "Date of Birth": Birth.value,
-      "Secure Messege": breakLine(custom_message_value.value),
+      Messege: breakLine(custom_message_value.value),
     };
 
     if (File.files.length) {
