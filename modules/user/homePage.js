@@ -382,14 +382,17 @@ const homeLoad = (data) => {
   let success = document.querySelector(".msg-success");
   let loading = document.querySelector("#loading");
 
-  Birth.onpaste = () => {
-    if((/^(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])\-\d{4}$/).test(Birth.value) == false){
+  Birth.addEventListener("input", (e) => {
+    if (
+      /^(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])\-\d{4}$/.test(date.value) ==
+      false
+    ) {
       error.style.display = "block";
       error.innerText = "Date of Birth allow only MM-DD-YYYY format.";
-    } else{
+    } else {
       error.style.display = "none";
     }
-  }
+  });
 
   File.onchange = (e) => {
     let checkboxDiv = document.querySelector(".secure-message-checkbox");
@@ -404,15 +407,18 @@ const homeLoad = (data) => {
     let custom_message_value = document.querySelector("#custom-message-value");
 
     error.style.display = "none";
-    
-    if((/^(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])\-\d{4}$/).test(Birth.value) == false){
+
+    if (
+      /^(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])\-\d{4}$/.test(Birth.value) ==
+      false
+    ) {
       error.style.display = "block";
       error.innerText = "Date of Birth allow only MM-DD-YYYY format.";
       return;
     }
 
     button.innerText = "Sending...";
-    
+
     success.style.display = "none";
     loading.style.display = "block";
 
