@@ -366,7 +366,7 @@ const getDateTime = () => {
     }) +
     " | " +
     time.toLocaleTimeString("en-US")
-  );
+  ).replace(" ", " ");
 };
 
 const homeLoad = (data) => {
